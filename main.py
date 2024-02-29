@@ -24,28 +24,23 @@ from . import internal_t
 '''
 Replace the ModuleName with any name you'd like
 '''
-class ModuleName(interactions.Extension):
+class Functions(interactions.Extension):
     module_base: interactions.SlashCommand = interactions.SlashCommand(
-        name="replace_your_command_base_here",
-        description="Replace here for the base command descriptions"
+        name="cxdtest",
+        description="git Replace here for the base command descriptions"
     )
     module_group: interactions.SlashCommand = self.module_base.group(
-        name="replace_your_command_group_here",
-        description="Replace here for the group command descriptions"
+        name="function test",
+        description="test some functions"
     )
 
-    @module_group.subcommand("ping", sub_cmd_description="Replace the description of this command")
-    @interactions.slash_option(
-        name = "option_name",
-        description = "Option description",
-        required = True,
-        opt_type = interactions.OptionType.STRING
-    )
-    async def module_group_ping(self, ctx: interactions.SlashContext, option_name: str):
-        await ctx.send(f"Pong {option_name}!")
+    @module_group.subcommand("back_to_top", sub_cmd_description="回顶")
+    
+    async def module_group_ping(self, ctx: interactions.SlashContext):
+        await ctx.send(f"{ctx.channel.url}"+'/0')
         internal_t.internal_t_testfunc()
 
-    @module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
+    '''@module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
     @interactions.slash_option(
         name = "option_name",
         description = "Option description",
@@ -54,4 +49,4 @@ class ModuleName(interactions.Extension):
     )
     async def module_group_pong(self, ctx: interactions.SlashContext, option_name: str):
         await ctx.send(f"Pong {option_name}!")
-        internal_t.internal_t_testfunc()
+        internal_t.internal_t_testfunc()'''
