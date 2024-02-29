@@ -29,7 +29,7 @@ class Functions(interactions.Extension):
         name="cxdtest",
         description="git Replace here for the base command descriptions"
     )
-    module_group: interactions.SlashCommand = module_base.group(
+    module_group: interactions.SlashCommand = self.module_base.group(
         name="function test",
         description="test some functions"
     )
