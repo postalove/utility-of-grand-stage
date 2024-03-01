@@ -40,7 +40,7 @@ class Functions(interactions.Extension):
         await ctx.defer()
 
         result = ''
-        for role in reversed(guild.roles):
+        for role in guild.roles:
             if role.name == '————-[Bot身份组]-————':
                 break
             if role.name.startswith('——'):
