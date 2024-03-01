@@ -29,8 +29,8 @@ class Functions(interactions.Extension):
         name="cxdtest",
         description="git Replace here for the base command descriptions"
     )
-    module_group: interactions.SlashCommand = self.module_base.group(
-        name="function test",
+    module_group: interactions.SlashCommand = module_base.group(
+        name="function_test",
         description="test some functions"
     )
 
@@ -38,7 +38,7 @@ class Functions(interactions.Extension):
     
     async def module_group_ping(self, ctx: interactions.SlashContext):
         await ctx.send(f"{ctx.channel.url}"+'/0')
-        internal_t.internal_t_testfunc()
+        
 
     '''@module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
     @interactions.slash_option(
