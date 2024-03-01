@@ -37,7 +37,8 @@ class Functions(interactions.Extension):
     @module_group.subcommand("back_to_top", sub_cmd_description="回顶")
     
     async def module_group_ping(self, ctx: interactions.SlashContext):
-        await ctx.send(f"{ctx.channel.url}"+'/0')
+        channel= await ctx.get_channel()
+        await ctx.send(f"{channel.url}"+'/0')
         
 
     '''@module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
