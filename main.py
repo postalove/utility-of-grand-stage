@@ -53,7 +53,20 @@ class Functions(interactions.Extension):
             result += '\n'
 
         # Split the result into chunks of 4096 characters
-        chunks = [result[i:i+4096] for i in range(0, len(result), 4096)]
+        
+
+        # Send each chunk as a separate embed
+        
+        chunks = []
+        while len(result) > 4096:
+            index = result.rfind('\n', 0, 4096)
+            if index == -1:
+                index = 4096
+            chunks.append(result[:index])
+            result = result[index:].lstrip()
+
+        # Add the remaining part of the result
+        chunks.append(result)
 
         # Send each chunk as a separate embed
         for chunk in chunks:
