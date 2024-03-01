@@ -35,35 +35,35 @@ class Functions(interactions.Extension):
     )
 
     @module_group.subcommand("staff_members", sub_cmd_description="导出公职人员名单")
-    
     async def module_group_ping(self, ctx: interactions.SlashContext):
-
         guild = ctx.guild
-        result = ''
         await ctx.defer()
-            
+
+        result = ''
         for role in reversed(guild.roles):
             if role.name == '————-[Bot身份组]-————':
                 break
             if role.name.startswith('——'):
                 continue
-            result = result + f'{role.name}:'
+            result += f'{role.name}:'
             
             for member in guild.members:
-                
-                
-                # Check if the role is in the member's roles
                 if role in member.roles:
-                    result = result + f'{member.mention} '
-            result = result + '\n'
-                # If the role is '临时成员', break the loop
-            
-        embed = interactions.Embed(
-        title="公职人员名单",
-        description=result,
-        color=0x00ff00  # You can change the color as desired
-    )
-        await ctx.send(embed=embed)
+                    result += f'{member.mention} '
+            result += '\n'
+
+        # Split the result into chunks of 4096 characters
+        chunks = [result[i:i+4096] for i in range(0, len(result), 4096)]
+
+        # Send each chunk as a separate embed
+        for chunk in chunks:
+            embed = interactions.Embed(
+                title="公职人员名单",
+                description=chunk,
+                color=0x00ff00  # You can change the color as desired
+            )
+            await ctx.send(embed=embed)
+
         
 
     '''@module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
