@@ -26,21 +26,44 @@ Replace the ModuleName with any name you'd like
 '''
 class Functions(interactions.Extension):
     module_base: interactions.SlashCommand = interactions.SlashCommand(
-        name="",
+        name="export",
         description="git Replace here for the base command descriptions"
     )
     module_group: interactions.SlashCommand = module_base.group(
-        name="",
+        name="info",
         description="test some functions"
     )
 
-    @module_group.subcommand("back_to_top", sub_cmd_description="回顶")
+    @module_group.subcommand("staff_members", sub_cmd_description="导出公职人员名单")
     
     async def module_group_ping(self, ctx: interactions.SlashContext):
 
-        channel_id= await ctx.channel_id
-        channel = interactions.get_channel(channel_id)
-        await ctx.send(f"{channel.url}"+'/0')
+        guild = ctx.guild
+        result = ''
+        await ctx.response.defer()
+            
+        for role in reversed(guild.roles):
+            if role.name == '————-[Bot身份组]-————':
+                break
+            if role.name.startswith('——'):
+                continue
+            result = result + f'{role.name}:'
+            
+            for member in guild.members:
+                
+                
+                # Check if the role is in the member's roles
+                if role in member.roles:
+                    result = result + f'{member.mention} '
+            result = result + '\n'
+                # If the role is '临时成员', break the loop
+            
+        embed = interactions.Embed(
+        title="公职人员名单",
+        description=result,
+        color=0x00ff00  # You can change the color as desired
+    )
+        await ctx.send(embed=embed)
         
 
     '''@module_base.subcommand("pong", sub_cmd_description="Replace the description of this command")
