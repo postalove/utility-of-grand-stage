@@ -40,7 +40,7 @@ class Functions(interactions.Extension):
 
         guild = ctx.guild
         result = ''
-        await ctx.response.defer()
+        await ctx.defer()
             
         for role in reversed(guild.roles):
             if role.name == '————-[Bot身份组]-————':
