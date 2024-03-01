@@ -26,18 +26,20 @@ Replace the ModuleName with any name you'd like
 '''
 class Functions(interactions.Extension):
     module_base: interactions.SlashCommand = interactions.SlashCommand(
-        name="cxdtest",
+        name="",
         description="git Replace here for the base command descriptions"
     )
     module_group: interactions.SlashCommand = module_base.group(
-        name="function_test",
+        name="",
         description="test some functions"
     )
 
     @module_group.subcommand("back_to_top", sub_cmd_description="回顶")
     
     async def module_group_ping(self, ctx: interactions.SlashContext):
-        channel= await ctx.get_channel()
+
+        channel_id= await ctx.channel_id
+        channel = interactions.get_channel(channel_id)
         await ctx.send(f"{channel.url}"+'/0')
         
 
