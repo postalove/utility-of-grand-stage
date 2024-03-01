@@ -35,47 +35,36 @@ class Functions(interactions.Extension):
     )
 
     @module_group.subcommand("staff_members", sub_cmd_description="导出公职人员名单")
+    
     async def module_group_ping(self, ctx: interactions.SlashContext):
-        guild = ctx.guild
-        await ctx.defer()
 
+        guild = ctx.guild
         result = ''
-        for role in guild.roles:
+        await ctx.defer()
+            
+        for role in reversed(guild.roles):
             if role.name == '————-[Bot身份组]-————':
                 break
             if role.name.startswith('——'):
                 continue
-            result += f'{role.name}:'
+            result = result + f'{role.name}:'
             
             for member in guild.members:
+                
+                
+                # Check if the role is in the member's roles
                 if role in member.roles:
-                    result += f'{member.mention} '
-            result += '\n'
-
-        # Split the result into chunks of 4096 characters
+                    result = result + f'{member.mention} '
+            result = result + '\n'
+                # If the role is '临时成员', break the loop
+            
+        embed = interactions.Embed(
+        title="公职人员名单",
+        description=result,
+        color=0x00ff00  # You can change the color as desired
+    )
+        await ctx.send(embed=embed)
         
-
-        # Send each chunk as a separate embed
-        
-        chunks = []
-        while len(result) > 4096:
-            index = result.rfind('\n', 0, 4096)
-            if index == -1:
-                index = 4096
-            chunks.append(result[:index])
-            result = result[index:].lstrip()
-
-        # Add the remaining part of the result
-        chunks.append(result)
-
-        # Send each chunk as a separate embed
-        for chunk in chunks:
-            embed = interactions.Embed(
-                title="公职人员名单",
-                description=chunk,
-                color=0x00ff00  # You can change the color as desired
-            )
-            await ctx.send(embed=embed)
 
         
 
