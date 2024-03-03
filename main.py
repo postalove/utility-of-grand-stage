@@ -49,12 +49,12 @@ class Functions(interactions.Extension):
                 continue
             result = result + f'{role.name}:'
             
-            for member in guild.members:
+            for member in role.members:
                 
                 
                 # Check if the role is in the member's roles
-                if role in member.roles:
-                    result = result + f'{member.mention} '
+                
+                result = result + f'{member.mention} '
             result = result + '\n'
                 # If the role is '临时成员', break the loop
             
@@ -64,7 +64,8 @@ class Functions(interactions.Extension):
         color=0x00ff00  # You can change the color as desired
     )
         await ctx.send(embed=embed)
-        
+    
+    
 
         
 
