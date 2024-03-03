@@ -42,21 +42,17 @@ class Functions(interactions.Extension):
         result = ''
         await ctx.defer()
             
-        for role in guild.roles:
+        for role in reversed(guild.roles):
             if role.name == '————-[Bot身份组]-————':
                 break
             if role.name.startswith('——'):
                 continue
             result = result + f'{role.name}:'
             
-            for member in role.members:
-                
-                
-                # Check if the role is in the member's roles
-                
+            for member in role.members:  
                 result = result + f'{member.mention} '
             result = result + '\n'
-                # If the role is '临时成员', break the loop
+                
             
         embed = interactions.Embed(
         title="公职人员名单",
